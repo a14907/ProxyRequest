@@ -30,13 +30,13 @@ namespace ProxyRequest.Controllers
         [HttpGet("~/proxy")]
         public async Task<IActionResult> ProxyAsync(string url)
         {
-            _logger.LogWarning("当前请求地址：" + url);
             var response = await _client.GetAsync(url);
-            var str = await response.Content.ReadAsStringAsync();
+            var body = await response.Content.ReadAsStringAsync();
+            _logger.LogWarning($"当前请求地址：{url}，响应code：{response.StatusCode}，响应body：{body}");
             return new ContentResult()
             {
                 StatusCode = (int)response.StatusCode,
-                Content = str,
+                Content = body,
                 ContentType = response.Content.Headers.ContentType.ToString()
             };
         }
