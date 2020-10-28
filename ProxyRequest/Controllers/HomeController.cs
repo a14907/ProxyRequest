@@ -32,7 +32,7 @@ namespace ProxyRequest.Controllers
         {
             var response = await _client.GetAsync(url);
             var body = await response.Content.ReadAsStringAsync();
-            _logger.LogWarning($"当前请求地址：{url}，响应code：{response.StatusCode}，响应body：{body}");
+            _logger.LogWarning($"当前请求地址：{url}，响应code：{response.StatusCode}，响应body长度：{body.Length}");
             return new ContentResult()
             {
                 StatusCode = (int)response.StatusCode,
