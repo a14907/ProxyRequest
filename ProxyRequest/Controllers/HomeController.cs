@@ -8,8 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ProxyRequest.Controllers
 {
-    [ApiController]
-    [Route("[proxy]")]
+    [ApiController] 
     public class HomeController : ControllerBase
     {
         private HttpClient _client;
@@ -19,7 +18,13 @@ namespace ProxyRequest.Controllers
             _client = httpClientFactory.CreateClient();
         }
 
-        [HttpGet]
+        [HttpGet("~/")]
+        public string Index()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+
+        [HttpGet("~/proxy")]
         public async Task<IActionResult> ProxyAsync(string url)
         {
             var response = await _client.GetAsync(url);
