@@ -8,14 +8,17 @@ using Microsoft.Extensions.Logging;
 
 namespace ProxyRequest.Controllers
 {
-    [ApiController] 
+    [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly ILogger<HomeController> _logger;
         private HttpClient _client;
 
-        public HomeController(IHttpClientFactory httpClientFactory)
+        public HomeController(IHttpClientFactory httpClientFactory
+            , ILogger<HomeController> logger)
         {
             _client = httpClientFactory.CreateClient();
+            _logger = logger;
         }
 
         [HttpGet("~/")]
@@ -27,6 +30,7 @@ namespace ProxyRequest.Controllers
         [HttpGet("~/proxy")]
         public async Task<IActionResult> ProxyAsync(string url)
         {
+            _logger.LogWarning("当前请求地址：" + url);
             var response = await _client.GetAsync(url);
             var str = await response.Content.ReadAsStringAsync();
             return new ContentResult()
