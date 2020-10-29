@@ -34,6 +34,7 @@ namespace ProxyRequest.Controllers
             {
                 domain = "www.youtube.com";
             }
+            domain = domain.Replace("__", ".");
             string url = string.Empty;
             if (string.IsNullOrEmpty(query))
             {
