@@ -24,7 +24,7 @@ namespace ProxyRequest.Controllers
         [HttpGet("~/")]
         public string Index()
         {
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff" + "(tubi=youtube,string scheme, string domain, string path, string query)");
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "(tubi=youtube,string scheme, string domain, string path, string query)";
         }
 
         [HttpGet("~/proxy")]
