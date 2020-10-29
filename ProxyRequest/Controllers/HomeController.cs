@@ -34,7 +34,16 @@ namespace ProxyRequest.Controllers
             {
                 domain = "www.youtube.com";
             }
-            var url = $"{scheme}://{domain}{path}?{query}";
+            string url = string.Empty;
+            if (string.IsNullOrEmpty(query))
+            {
+                url = $"{scheme}://{domain}{path}";
+            }
+            else
+            {
+                url = $"{scheme}://{domain}{path}?{query}";
+            }
+
             var response = await _client.GetAsync(url);
             var body = await response.Content.ReadAsStringAsync();
             _logger.LogWarning($"当前请求地址：{url}，响应code：{response.StatusCode}，响应body长度：{body.Length}");
